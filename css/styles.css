@@ -68,7 +68,10 @@ canvas { display:block; } /* To remove the scrollbars */
     #background-color: #555555;
 }
 
-
+.small-text
+{
+    font-size: 12px;
+}
 .col1{
     background: #5C7080;
 }

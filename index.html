@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container-full" id="container-canvas">
-    <div id="test" style="position:fixed;top:0;left:0;right:0;height:0;z-index:2;" class="col-md-3 col-xs-12">
+    <div id="test" style="position:fixed;top:0;left:0;right:0;height:0;z-index:2;" class="col-md-2 col-xs-12">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading " role="tab" id="headingOne">
@@ -63,7 +63,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="panel panel-default ">
                 <div class="panel-heading " role="tab" id="headingTwo">
                     <h4 class="panel-title">
@@ -77,6 +76,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
         </div>
     </div>
 </div>
@@ -115,6 +117,10 @@
         });
         $( "#input-animation-speed" ).val($( "#slider-animation-speed" ).slider( "value" ) );
         $( "#input-scale" ).val($( "#slider-scale" ).slider( "value" ) );
+        $( "#input-scale" ).change(function() {
+            $( "#slider-scale" ).slider({"value": $(this).val()});
+        });
+
     });
 </script>
 </body>
