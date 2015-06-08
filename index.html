@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Solar System Simulator 1.0 </title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div class="container-full" id="container-canvas">
+    <div id="test" style="position:fixed;top:0;left:0;right:0;height:0;z-index:2;" class="col-md-3 col-xs-12">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading " role="tab" id="headingOne">
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Animation options
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body ">
+                    <div class="bs-callout bs-callout-info">
+                        <div class="row">
+                            <div class="col-xs-8"><p>Animation speed [days/s]:</p></div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control input-sm navigation-input"  id="input-animation-speed" placeholder="" value="1">
+                            </div>
+                           <div class="col-xs-12">
+                               <div id="slider-animation-speed"></div>
+                           </div>
+                           </div>
+                    </div><hr />
+                        <div class="bs-callout bs-callout-info">
+                            <div class="row">
+                                <div class="col-xs-8"><p>Scale: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="text" class="form-control input-sm navigation-input"  id="input-scale" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-scale"></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info">
+                            <div class="row">
+                                <div style="col-xs-12"></div>
+                                <a class="btn btn-default" href="#" role="button">Link</a>
+                                <a class="btn btn-default" href="#" role="button">Link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default ">
+                <div class="panel-heading " role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Objects
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="build/three.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="libs/TrackBallControls.js"></script>
+<script type="text/javascript" src="libs/dat.gui.min.js"></script>
+<script src='libs/threex.planets.js'></script>
+<script src='libs/threex.atmospherematerial.js'></script>
+<script src="build/data.loader.js"></script>
+<script src="build/gui.js"></script>
+<script src="build/animation.fnc.js"></script>
+<!--<script src="build/animation.js"></script>-->
+<script>
+    $(function() {
+        $( "#slider-animation-speed" ).slider({
+            range: "min",
+            value: 1,
+            min: 1,
+            max: 30,
+            slide: function( event, ui ) {
+                $( "#input-animation-speed" ).val(ui.value );
+            }
+        });
+        $( "#slider-scale" ).slider({
+            range: "min",
+            value: 1,
+            min: 1,
+            max: 30,
+            slide: function( event, ui ) {
+                $( "#input-scale" ).val(ui.value );
+            }
+        });
+        $( "#input-animation-speed" ).val($( "#slider-animation-speed" ).slider( "value" ) );
+        $( "#input-scale" ).val($( "#slider-scale" ).slider( "value" ) );
+    });
+</script>
+</body>
+</html>
