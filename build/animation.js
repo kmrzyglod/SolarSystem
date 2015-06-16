@@ -1,3 +1,10 @@
+/*
+Główny plik renedrujacy scenę:
+W programie wykorzystałem tekstury ze strony http://planetpixelemporium.com/
+Plik threex.atmospherematerial.js zawiera shader opowiedzialny za renderowanie atmosfery słońca, info o autorze w pliku.
+Dane o układzie planetarnym (masa gwiazdy, inklinacja orbit, prędkości planet w apohelium itp) są ładowane z pliku data.json w katalogu data
+*/
+
 var renderer = null,
     scene = null,
     camera = null;
@@ -36,12 +43,13 @@ $(document).ready(
     function() {
         loadObjects();
         var container = document.getElementById("container-canvas");
-        camera = new THREE.PerspectiveCamera( 45, SCREEN_WIDTH / SCREEN_HEIGHT, 0.001, 100000 );
+        camera = new THREE.PerspectiveCamera( 50, SCREEN_WIDTH / SCREEN_HEIGHT, 0.001, 1000000 );
 
         // Tworzy nową scenę Three.js
+
         scene = new THREE.Scene();
         scene.add(camera);
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer = new THREE.WebGLRenderer( { antialias: true, logarithmicDepthBuffer: true } );
         renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
         renderer.domElement.style.position = "relative";
         renderer.shadowMapEnabled	= true;
@@ -63,16 +71,17 @@ $(document).ready(
         controls.maxDistance = 100000;
         controls.addEventListener( 'change', render );
         //Dodanie skyboxa
-        var starSphere	= THREEx.Planets.createStarfield(100000000)
+        var starSphere	= THREEx.Planets.createStarfield(100000)
         scene.add(starSphere)
+
 
         // Dodanie światła rozproszonego
         var light_a = new THREE.AmbientLight( 0x282828 ); // soft white light
         scene.add( light_a );
 
         //Wspomaganie debugowania
-        // scene.add(new THREE.AxisHelper(10000));
-        //scene.add(new THREE.GridHelper(10000,1000));
+        scene.add(new THREE.AxisHelper(10000));
+        scene.add(new THREE.GridHelper(10000,1000));
 
         //Inicjalizacja śladów planet
         addTrails();

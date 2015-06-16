@@ -28,10 +28,11 @@ function addObject(_obj){
         _obj.geom = new THREE.Mesh(new THREE.SphereGeometry(_obj.params.radius, 64, 64), new THREE.MeshBasicMaterial({
             map: texture,
             color: 0xffffff }));
+
         //Dodawanie atmosfery Słońca
         var atmosphereGeometry	= new THREE.SphereGeometry(_obj.params.radius, 64, 64)
         var atmpsphereMaterial	= THREEx.createAtmosphereMaterial()
-        atmpsphereMaterial.side	= THREE.BackSide
+        atmpsphereMaterial.side	= THREE.BackSide;
         atmpsphereMaterial.uniforms.coeficient.value	= 0.5
         atmpsphereMaterial.uniforms.power.value		= 8.0
         atmpsphereMaterial.uniforms.glowColor.value	= new THREE.Color(0xa2a23c);
@@ -39,6 +40,7 @@ function addObject(_obj){
         atmosphereMesh.scale.multiplyScalar(1.2);
         _obj.atmosphere =  atmosphereMesh;
         scene.add(_obj.atmosphere);
+
     }
     var ghostGeometry = new THREE.SphereGeometry(1, 32, 16);
     var ghostMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0});
@@ -137,6 +139,23 @@ function setScale(_obj, scale)
     _obj.scale.y = scale;
     _obj.scale.z = scale;
 };
+//Skalowanie wszystkich obiektów
+function setScaleAll(object, value)
+{
+    for (i=0;i<object.length;i++)
+    {
+        var tmp = value;
+        if (i==0)
+        {
+            if (tmp<1000) tmp=1;
+            else tmp=tmp/1000;
+            setScale(object[i].atmosphere, tmp*1.2);
+        }
+        setScale(object[i].geom, tmp);
+
+    }
+
+}
 //Aktualizacja położenia ducha
 function updateGhost(_obj) {
     _obj.ghost.position.copy(_obj.geom.position);

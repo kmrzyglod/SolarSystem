@@ -51,13 +51,14 @@ THREEx.createAtmosphereMaterial	= function(){
 			glowColor	: {
 				type	: "c",
 				value	: new THREE.Color('pink')
-			},
+			}
 		},
 		vertexShader	: vertexShader,
 		fragmentShader	: fragmentShader,
 		//blending	: THREE.AdditiveBlending,
 		transparent	: true,
-		depthWrite	: false,
+		depthTest : true,
+        depthWrite	: false
 	});
 	return material
 }

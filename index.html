@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container-full" id="container-canvas">
-    <div id="test" style="position:fixed;top:0;left:0;right:0;height:0;z-index:2;" class="col-md-2 col-xs-12">
+    <div id="menu"  class="col-md-3 col-xs-12 menu">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading " role="tab" id="headingOne">
@@ -33,9 +33,9 @@
                     <div class="panel-body ">
                     <div class="bs-callout bs-callout-info">
                         <div class="row">
-                            <div class="col-xs-8"><p>Animation speed [days/s]:</p></div>
+                            <div class="col-xs-8"><p>Animation speed [day/s]:</p></div>
                             <div class="col-xs-4">
-                                <input type="text" class="form-control input-sm navigation-input"  id="input-animation-speed" placeholder="" value="1">
+                                <input type="number" class="form-control input-sm navigation-input"  min="0" max="1000" id="input-animation-speed" placeholder="" value="1">
                             </div>
                            <div class="col-xs-12">
                                <div id="slider-animation-speed"></div>
@@ -46,7 +46,7 @@
                             <div class="row">
                                 <div class="col-xs-8"><p>Scale: </p></div>
                                 <div class="col-xs-4">
-                                    <input type="text" class="form-control input-sm navigation-input"  id="input-scale" placeholder="" value="1">
+                                    <input type="number" class="form-control input-sm navigation-input"  min="1", max="10000" id="input-scale" placeholder="" value="1">
                                 </div>
                                 <div class="col-xs-12">
                                     <div id="slider-scale"></div>
@@ -55,9 +55,15 @@
                         </div><hr />
                         <div class="bs-callout bs-callout-info">
                             <div class="row">
-                                <div style="col-xs-12"></div>
-                                <a class="btn btn-default" href="#" role="button">Link</a>
-                                <a class="btn btn-default" href="#" role="button">Link</a>
+                                <div class="btn-group col-xs-12 btn-navigation" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-danger btn-sm" id="btn-animation-state">
+                                        <span id="btn-animation-state-description">Stop</span>
+                                        <span id="btn-animation-state-glyph" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-warning btn-sm" id="btn-animation-restart">
+                                        <span>Restart</span>
+                                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -65,14 +71,105 @@
                 </div>
             <div class="panel panel-default ">
                 <div class="panel-heading " role="tab" id="headingTwo">
-                    <h4 class="panel-title">
+                    <div class="row">
+                    <h4 class="panel-title col-xs-5 ">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Objects
                         </a>
+
                     </h4>
+                        <div class="dropdown col-xs-7 objects-header">
+                            <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="menu1" data-toggle="dropdown">Objects list
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="objects-menu">
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
+                        <div class="bs-callout bs-callout-success" hidden >
+                            <div class="row">
+                                <div class="col-xs-8"><p>Name: </p></div>
+                                <div class="col-xs-4">
+                                    <p class="text-success" id="object-name"></p>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-success" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p>Inclination [°]: </p></div>
+                                <div class="col-xs-4">
+                                    <p class="text-success" id="object-inclination"></p>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p id="object-mass-unity">Mass [Mz]: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="number" class="form-control input-sm navigation-input"  id="object-mass" obj_id="" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-object-mass" obj_id=""></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p>Radius [Rz]: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="number" class="form-control input-sm navigation-input"  id="object-radius" obj_id="" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-object-radius" obj_id=""></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p>Velocity x [km/s]: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="number" class="form-control input-sm navigation-input"  id="object-velocity-x" obj_id="" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-object-velocity-x" obj_id=""></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p>Velocity y [km/s]: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="number" class="form-control input-sm navigation-input"  id="object-velocity-y" obj_id="" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-object-velocity-y" obj_id=""></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-info" hidden>
+                            <div class="row">
+                                <div class="col-xs-8"><p>Velocity z [km/s]: </p></div>
+                                <div class="col-xs-4">
+                                    <input type="number" class="form-control input-sm navigation-input"  id="object-velocity-z" obj_id="" placeholder="" value="1">
+                                </div>
+                                <div class="col-xs-12">
+                                    <div id="slider-object-velocity-z" obj_id=""></div>
+                                </div>
+                            </div>
+                        </div><hr />
+                        <div class="bs-callout bs-callout-danger" hidden>
+                            <div class="row">
+                                <div class="btn-group col-xs-12 btn-navigation" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-danger btn-sm" id="btn-animation-focus-on" obj_id="">
+                                        <span  >Focus on</span>
+                                        <span  class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,40 +185,12 @@
 <script src="build/three.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="libs/TrackBallControls.js"></script>
-<script type="text/javascript" src="libs/dat.gui.min.js"></script>
 <script src='libs/threex.planets.js'></script>
 <script src='libs/threex.atmospherematerial.js'></script>
 <script src="build/data.loader.js"></script>
 <script src="build/gui.js"></script>
 <script src="build/animation.fnc.js"></script>
-<!--<script src="build/animation.js"></script>-->
-<script>
-    $(function() {
-        $( "#slider-animation-speed" ).slider({
-            range: "min",
-            value: 1,
-            min: 1,
-            max: 30,
-            slide: function( event, ui ) {
-                $( "#input-animation-speed" ).val(ui.value );
-            }
-        });
-        $( "#slider-scale" ).slider({
-            range: "min",
-            value: 1,
-            min: 1,
-            max: 30,
-            slide: function( event, ui ) {
-                $( "#input-scale" ).val(ui.value );
-            }
-        });
-        $( "#input-animation-speed" ).val($( "#slider-animation-speed" ).slider( "value" ) );
-        $( "#input-scale" ).val($( "#slider-scale" ).slider( "value" ) );
-        $( "#input-scale" ).change(function() {
-            $( "#slider-scale" ).slider({"value": $(this).val()});
-        });
+<script src="build/animation.js"></script>
 
-    });
-</script>
 </body>
 </html>
