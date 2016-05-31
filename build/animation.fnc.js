@@ -60,10 +60,11 @@ function addObject(_obj){
     obj_click.push(_obj.ghost);
 
 }
-//Do zamiany
+
 function getAcceleration(distance, starMass) {
     return G * starMass / (Math.pow(distance, 2));
 };
+
 //Przeliczanie położenia
 function updateVelocity(planet, star) {
     var vel = new THREE.Vector3();
@@ -81,6 +82,7 @@ function updateVelocity(planet, star) {
         }
     }
 };
+
 //Właściwa funkcja animacji
 function animate() {
     focusVec.copy(FOCUS.position);
@@ -97,6 +99,7 @@ function animate() {
     }
 
 }
+
 // Funkcja inicjalizująca ślad
 function createTrail(_obj) {
     var trailGeometry = new THREE.Geometry();
@@ -106,9 +109,9 @@ function createTrail(_obj) {
     var trailMaterial = new THREE.LineBasicMaterial({ color: _obj.params.trailColor});
     return new THREE.Line(trailGeometry, trailMaterial);
 }
+
 //Inicjalziacja śladów dla wszystkich obiektów
 function addTrails() {
-    //Inaczej nie działa, nie wiem dlaczego nie można tego zrobić w pętli
     object[1].trail = createTrail(object[1]);
     object[2].trail = createTrail(object[2]);
     object[3].trail = createTrail(object[3]);
@@ -120,18 +123,21 @@ function addTrails() {
     object[9].trail = createTrail(object[9]);
 
 }
+
 //Aktualizowanie śladu
 function leaveTrail(_obj) {
     _obj.trail.geometry.vertices.unshift(new THREE.Vector3().copy(_obj.geom.position));
     _obj.trail.geometry.vertices.length = _obj.params.trails;
     _obj.trail.geometry.verticesNeedUpdate = true;
 };
+
 function getDistance(v1, v2) {
     var x = v1.x - v2.x;
     var y = v1.y - v2.y;
     var z = v1.z - v2.z;
     return Math.sqrt(x * x + y * y + z * z);
 };
+
 //Skalowanie obiektu
 function setScale(_obj, scale)
 {
@@ -139,10 +145,11 @@ function setScale(_obj, scale)
     _obj.scale.y = scale;
     _obj.scale.z = scale;
 };
+
 //Skalowanie wszystkich obiektów
 function setScaleAll(object, value)
 {
-    for (i=0;i<object.length;i++)
+    for (var i=0;i<object.length;i++)
     {
         var tmp = value;
         if (i==0)
@@ -156,6 +163,7 @@ function setScaleAll(object, value)
     }
 
 }
+
 //Aktualizacja położenia ducha
 function updateGhost(_obj) {
     _obj.ghost.position.copy(_obj.geom.position);
@@ -168,6 +176,7 @@ function updateGhost(_obj) {
         else  _obj.ghost.material.opacity = MAX_GHOST_OPACITY;
     }
 };
+
 function run() {
     // Renderuje scenę
     renderer.render( scene, camera );
@@ -177,10 +186,12 @@ function run() {
     requestAnimationFrame(function() { run(); });
 
 }
+
 function render() {
     renderer.render( scene, camera );
 }
-//Przechwytywanie kliknęcia na obiekt. Nie do końca działa
+
+//Przechwytywanie kliknęcia na obiekt.
 function onDocumentMouseDown(event) {
 
     var tmp = {};
@@ -211,7 +222,7 @@ function onDocumentMouseDown(event) {
     }
 
 }
-//funkcja focusująca na danym
+
 function focusCameraOn(focus) {
     var focusVec = new THREE.Vector3();
     focusVec.subVectors(focus.position, FOCUS.position);
@@ -219,6 +230,7 @@ function focusCameraOn(focus) {
     FOCUS = focus;
     camera.lookAt(FOCUS.position);
 }
+
 //Funkcja reagująca na zmianę rozmiaru okna
 function onWindowResize() {
 

@@ -20,17 +20,11 @@ function loadObjects ()
                 data.objects[i].atmosphere = {};
                 if(data.objects[i].params.i!=0)
                 {
-                    fi  = 45;
                     var tmp;
                     data.objects[i].position.y = Math.sin(data.objects[i].params.i / 180 * Math.PI) * data.objects[i].position.x;
                     tmp = Math.cos(data.objects[i].params.i / 180 * Math.PI) *data.objects[i].position.x;
                     data.objects[i].position.x = tmp;
                     data.objects[i].position.z = 0;//Math.sin(data.objects[i].params.N / 180 * Math.PI) * tmp;
-                    /*
-                    data.objects[i].position.y = Math.sin(data.objects[i].params.i / 180 * Math.PI) * data.objects[i].position.x;
-                    tmp = Math.cos(data.objects[i].params.i / 180 * Math.PI) *data.objects[i].position.x;
-                    data.objects[i].position.x = tmp* Math.cos(fi / 180 * Math.PI);
-                    data.objects[i].position.z = tmp* Math.sin(fi / 180 * Math.PI);*/
                 }
 
             }

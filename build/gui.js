@@ -21,12 +21,8 @@ function setMassStar(id, value)
 {
     object[id].params.mass = value*Ms;
 }
-function setRadius(id, value)
-{
-    //setScale(object[id], value*Rz/object[id].params.radius)
-    object[id].params.radius=value*Rz;
-}
-//metoda tworząca slider
+
+//tworzenie slidera
 function createSlider(sliderID, inputID, min, max, fnc)
 {
     $("#"+sliderID).slider({
@@ -46,7 +42,7 @@ function createSlider(sliderID, inputID, min, max, fnc)
 
     });
 }
-//metoda inicjalizujaca całe GUI
+//inicjalizacja  GUI
 function initGUI() {
     $("#slider-animation-speed").slider({ //Inicjalizaja slidera szybkości animacji (jQueryUI silder)
         range: "min",
@@ -56,6 +52,11 @@ function initGUI() {
         slide: function (event, ui) {
             $("#input-animation-speed").val(ui.value);
             STEPS_PER_FRAME = 180 * ui.value;
+        },
+        create: function (event, ui) {
+            var  animationSpeedValue =  $("#slider-animation-speed").slider("option", "value");
+            $("#input-animation-speed").val(animationSpeedValue);
+            STEPS_PER_FRAME = 180 * animationSpeedValue;
         }
     });
     $("#slider-scale").slider({  //Inicjalizaja slidera skali planet
@@ -66,7 +67,8 @@ function initGUI() {
         slide: function (event, ui) {
             $("#input-scale").val(ui.value);
             setScaleAll(object, ui.value);
-        }
+        },
+
     });
     $("#input-animation-speed").val($("#slider-animation-speed").slider("value"));
     $("#input-scale").val($("#slider-scale").slider("value"));
@@ -104,6 +106,7 @@ function initGUI() {
 
 
     $(".cosmos-object").click(function () {
+        $("#collapseTwo").collapse("show");
         $("#btn-animation-focus-on").attr({"obj_id": $(this).attr("id")});
         $("#btn-animation-focus-on").parent().parent().parent().show();
         $("#btn-animation-focus-on").click(function () {
@@ -124,19 +127,13 @@ function initGUI() {
 
 
             createSlider("slider-object-mass", "object-mass", 1, 1000, setMass);
-            createSlider("slider-object-radius", "object-radius", 1, 10000, setRadius);
             createSlider("slider-object-velocity-x", "object-velocity-x", -100, 100, setVelocityX);
             createSlider("slider-object-velocity-y", "object-velocity-y", -100, 100, setVelocityY);
             createSlider("slider-object-velocity-z", "object-velocity-z", -100, 100, setVelocityZ);
-            $("#object-mass-unity").html("Mass [Mz]: ");
-            $("#object-mass").val(object_gui[$(this).attr("id")].params.mass / Mz);
+
+            $("#object-mass").parent().parent().parent().hide();
 
 
-            $("#object-radius").val(object_gui[$(this).attr("id")].params.radius / Rz);
-            $("#object-radius").attr({"obj_id": $(this).attr("id")});
-            $("#object-radius").parent().parent().parent().show();
-            $("#slider-object-radius").attr({"obj_id": $(this).attr("id")});
-            $("#slider-object-radius").slider({"value": object_gui[$(this).attr("id")].params.radius / Rz});
 
             $("#object-velocity-x").val(object_gui[$(this).attr("id")].params.vel.x * 1000000);
             $("#object-velocity-x").attr({"obj_id": $(this).attr("id")});
@@ -163,7 +160,6 @@ function initGUI() {
             $("#object-mass").val(object_gui[$(this).attr("id")].params.mass / Ms);
             $("#object-mass-unity").html("Mass [Ms]: ");
 
-            $("#object-radius").parent().parent().parent().hide();
             $("#object-velocity-x").parent().parent().parent().hide();
             $("#object-velocity-y").parent().parent().parent().hide();
             $("#object-velocity-z").parent().parent().parent().hide();

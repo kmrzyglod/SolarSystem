@@ -1,9 +1,9 @@
 /*
-Główny plik renedrujacy scenę:
-W programie wykorzystałem tekstury ze strony http://planetpixelemporium.com/
-Plik threex.atmospherematerial.js zawiera shader opowiedzialny za renderowanie atmosfery słońca, info o autorze w pliku.
-Dane o układzie planetarnym (masa gwiazdy, inklinacja orbit, prędkości planet w apohelium itp) są ładowane z pliku data.json w katalogu data
-*/
+ Renderowanie  sceny:
+ W programie wykorzystałem tekstury ze strony http://planetpixelemporium.com/
+ Plik threex.atmospherematerial.js zawiera shader opowiedzialny za renderowanie atmosfery słońca, info o autorze w pliku.
+ Dane o układzie planetarnym (masa gwiazdy, inklinacja orbit, prędkości planet w apohelium itp) są ładowane z pliku data.json w katalogu data
+ */
 
 var renderer = null,
     scene = null,
@@ -78,11 +78,6 @@ $(document).ready(
         // Dodanie światła rozproszonego
         var light_a = new THREE.AmbientLight( 0x282828 ); // soft white light
         scene.add( light_a );
-
-        //Wspomaganie debugowania
-        scene.add(new THREE.AxisHelper(10000));
-        scene.add(new THREE.GridHelper(10000,1000));
-
         //Inicjalizacja śladów planet
         addTrails();
         //Pętla inicjalizaująca obiekty
@@ -96,7 +91,7 @@ $(document).ready(
         camera.position.x = 310;
         camera.position.y = 150;
         camera.position.z = 310;
-       // focusCameraOn(object[0].geom);
+        // focusCameraOn(object[0].geom);
 
         camera.updateProjectionMatrix();
 
